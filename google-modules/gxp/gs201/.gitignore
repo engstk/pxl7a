@@ -1,0 +1,10 @@
+*.cmd
+*.ko
+*.mod*
+*.o
+*.orig
+modules.order
+Module.symvers
+.cache.mk
+.thinlto-cache/
+.repo/

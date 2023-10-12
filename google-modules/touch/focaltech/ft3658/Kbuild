@@ -6,3 +6,5 @@ focal_touch-objs += focaltech_core.o focaltech_ex_fun.o focaltech_ex_mode.o \
 	focaltech_flash.o \
 	focaltech_flash/focaltech_upgrade_ft3658u.o \
 	focaltech_spi.o
+
+EXTRA_CFLAGS += -I$(srctree)/$(src)/../../../display -I$(srctree)/$(src)/../../common -I$(srctree)/$(src)/../../common/include

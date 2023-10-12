@@ -3,8 +3,8 @@
 obj-$(CONFIG_CNSS2) += cnss2.o
 
 ifeq ($(CONFIG_CNSS_OUT_OF_TREE),y)
-ccflags-y += -I$(WLAN_PLATFORM_ROOT)/inc
-ccflags-y += -I$(WLAN_PLATFORM_ROOT)/cnss_utils
+ccflags-y += -I$(srctree)/$(src)/../inc
+ccflags-y += -I$(srctree)/$(src)/../cnss_utils
 ccflags-y += -DCONFIG_WCN_GOOGLE
 ccflags-y += -DCONFIG_QCOM_RAMDUMP -DCONFIG_QCOM_MEMORY_DUMP_V2
 else

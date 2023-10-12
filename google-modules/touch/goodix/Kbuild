@@ -13,3 +13,5 @@ goodix_brl_touch-objs += \
 	goodix_ts_proc.o \
 	touch_apis.o \
 	touch_mf_mode.o
+
+EXTRA_CFLAGS += -I$(srctree)/$(src)/../../display -I$(srctree)/$(src)/../common -I$(srctree)/$(src)/../common/include

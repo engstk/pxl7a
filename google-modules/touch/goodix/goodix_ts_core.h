@@ -48,7 +48,7 @@
 #include <goog_touch_interface.h>
 #endif
 #if IS_ENABLED(CONFIG_VH_SYSTRACE)
-#include "../../../gs-google/drivers/soc/google/vh/kernel/systrace.h"
+#include "../../../drivers/soc/google/vh/kernel/systrace.h"
 #else
 #define ATRACE_BEGIN(f)
 #define ATRACE_END()

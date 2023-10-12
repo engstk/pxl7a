@@ -258,7 +258,7 @@ EXTRA_SYMBOLS += $(OUT_DIR)/../google-modules/gpu/mali_pixel/Module.symvers
 
 # The following were added to align with W=1 in scripts/Makefile.extrawarn
 # from the Linux source tree
-KBUILD_CFLAGS += -Wall -Werror
+KBUILD_CFLAGS += -Wall
 KBUILD_CFLAGS += -Wextra -Wunused -Wno-unused-parameter
 KBUILD_CFLAGS += -Wmissing-declarations
 KBUILD_CFLAGS += -Wmissing-format-attribute

@@ -48,7 +48,18 @@ endif
 
 ifeq ($(CONFIG_$(GXP_CHIP)),m)
 
-gxp-objs += $(GCIP_DIR)/gcip.o
+gxp-objs += \
+		$(GCIP_DIR)/gcip-alloc-helper.o \
+		$(GCIP_DIR)/gcip-dma-fence.o \
+		$(GCIP_DIR)/gcip-domain-pool.o \
+		$(GCIP_DIR)/gcip-firmware.o \
+		$(GCIP_DIR)/gcip-image-config.o \
+		$(GCIP_DIR)/gcip-kci.o \
+		$(GCIP_DIR)/gcip-mailbox.o \
+		$(GCIP_DIR)/gcip-mem-pool.o \
+		$(GCIP_DIR)/gcip-pm.o \
+		$(GCIP_DIR)/gcip-telemetry.o \
+		$(GCIP_DIR)/gcip-thermal.o
 
 endif
 
@@ -56,7 +67,7 @@ KERNEL_SRC ?= /lib/modules/$(shell uname -r)/build
 M ?= $(shell pwd)
 
 # Obtain the current git commit hash for logging on probe
-GIT_PATH=$(shell cd $(KERNEL_SRC); readlink -e $(M))
+GIT_PATH=$(srctree)
 ifeq ($(shell git --git-dir=$(GIT_PATH)/.git rev-parse --is-inside-work-tree),true)
         GIT_REPO_STATE=$(shell (git --git-dir=$(GIT_PATH)/.git --work-tree=$(GIT_PATH) status --porcelain | grep -q .) && echo -dirty)
         ccflags-y       += -DGIT_REPO_TAG=\"$(shell git --git-dir=$(GIT_PATH)/.git rev-parse --short HEAD)$(GIT_REPO_STATE)\"
@@ -77,7 +88,7 @@ GXP_PLATFORM ?= SILICON
 gxp-flags := -DCONFIG_GXP_$(GXP_PLATFORM) -DCONFIG_$(GXP_CHIP)=1 \
 	     -I$(M)/include -I$(M)/gcip-kernel-driver/include \
 	     -I$(srctree)/$(M)/include \
-	     -I$(srctree)/$(M)/gcip-kernel-driver/include \
+	     -I$(srctree)/$(src)/gcip-kernel-driver/include \
 	     -I$(srctree)/drivers/gxp/include
 ccflags-y += $(EXTRA_CFLAGS) $(gxp-flags)
 
@@ -87,7 +98,6 @@ KBUILD_OPTIONS += GXP_CHIP=$(GXP_CHIP) GXP_PLATFORM=$(GXP_PLATFORM)
 EXTRA_SYMBOLS += $(GMODULE_PATH)/edgetpu/$(EDGETPU_CHIP)/drivers/edgetpu/Module.symvers
 
 modules modules_install:
-	$(MAKE) -C $(KERNEL_SRC) M=$(M)/$(GCIP_DIR) gcip.o
 	$(MAKE) -C $(KERNEL_SRC) M=$(M) W=1 $(KBUILD_OPTIONS) \
 	EXTRA_CFLAGS="$(EXTRA_CFLAGS)" KBUILD_EXTRA_SYMBOLS="$(EXTRA_SYMBOLS)" $(@)
 clean:

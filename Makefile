@@ -669,6 +669,7 @@ drivers-y	:= drivers/ sound/
 drivers-$(CONFIG_SAMPLES) += samples/
 drivers-y	+= net/ virt/
 libs-y		:= lib/
+drivers-$(CONFIG_SOC_GS201) += google-modules/
 endif # KBUILD_EXTMOD
 
 ifndef KBUILD_MIXED_TREE

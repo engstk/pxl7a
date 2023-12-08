@@ -55,8 +55,6 @@
 	goog,display-resolution = /bits/ 16 <1080 2400>;
 	goog,channel-num = /bits/ 16 <16 34>;
 	goog,tbn-enabled;
-	goog,offload-caps-rotation-reporting;
-	goog,offload-caps-cancel-reporting;
 
 	controller-data {
 		cs-gpio = <&gpp20 3 0>;

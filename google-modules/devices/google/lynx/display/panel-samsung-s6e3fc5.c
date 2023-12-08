@@ -50,6 +50,8 @@ static const u8 test_key_off_f1[] = { 0xF1, 0xA5, 0xA5 };
 static const u8 freq_update[] = { 0xF7, 0x0F };
 static const u8 new_gamma_ip_bypass[] = { 0x68, 0x01 };
 static const u8 new_gamma_ip_enable[] = { 0x68, 0x02 };
+static const u8 pixel_off[] = { 0x22 };
+static const u8 normal_on[] = { 0x13 };
 static const u32 lhbm_1300_1100_rgb_ratio[LHBM_RGB_RATIO_SIZE] = {922974324, 910436713, 898442180};
 static const u32 lhbm_990_1300_rgb_ratio[LHBM_RGB_RATIO_SIZE] = {1089563019, 1063348416, 1099934254};
 static const u32 lhbm_1208_1300_rgb_ratio[LHBM_RGB_RATIO_SIZE] = {1029306415, 1018581722, 1029205963};
@@ -162,6 +164,11 @@ struct s6e3fc5_panel {
 		u8 ns_cmd[LHBM_GAMMA_CMD_SIZE];
 		u8 aod_cmd[LHBM_GAMMA_CMD_SIZE];
 	} local_hbm_gamma;
+	/**
+	 * @is_pixel_off: pixel-off command is sent to panel. Only sending normal-on or resetting
+	 *			panel can recover to normal mode after entering pixel-off state.
+	 */
+	bool is_pixel_off;
 };
 
 #define to_spanel(ctx) container_of(ctx, struct s6e3fc5_panel, base)
@@ -470,14 +477,33 @@ static void s6e3fc5_update_wrctrld(struct exynos_panel *ctx)
 static int s6e3fc5_set_brightness(struct exynos_panel *ctx, u16 br)
 {
 	u16 brightness;
+	struct s6e3fc5_panel *spanel = to_spanel(ctx);
 
 	if (ctx->current_mode->exynos_mode.is_lp_mode) {
 		const struct exynos_panel_funcs *funcs;
 
+		/* don't stay at pixel-off state in AOD, or black screen is possibly seen */
+		if (spanel->is_pixel_off) {
+			EXYNOS_DCS_WRITE_TABLE(ctx, normal_on);
+			spanel->is_pixel_off = false;
+		}
 		funcs = ctx->desc->exynos_panel_func;
 		if (funcs && funcs->set_binned_lp)
 			funcs->set_binned_lp(ctx, br);
 		return 0;
+	}
+
+	/* Use pixel off command instead of setting DBV 0 */
+	if (!br) {
+		if (!spanel->is_pixel_off) {
+			EXYNOS_DCS_WRITE_TABLE(ctx, pixel_off);
+			spanel->is_pixel_off = true;
+			dev_dbg(ctx->dev, "%s: pixel off instead of dbv 0\n", __func__);
+		}
+		return 0;
+	} else if (br && spanel->is_pixel_off) {
+		EXYNOS_DCS_WRITE_TABLE(ctx, normal_on);
+		spanel->is_pixel_off = false;
 	}
 
 	if (ctx->panel_rev <= PANEL_REV_EVT1_0_2 && br >= MAX_BR_HBM_EVT1_0_2) {
@@ -677,6 +703,7 @@ static int s6e3fc5_panel_probe(struct mipi_dsi_device *dsi)
 		return -ENOMEM;
 
 	spanel->base.op_hz = 90;
+	spanel->is_pixel_off = false;
 
 	return exynos_panel_common_init(dsi, &spanel->base);
 }

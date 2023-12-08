@@ -1004,8 +1004,7 @@ static int get_self_sensor_data(
 		cmd->buffer = (u8 *)cd->self_sensing_data;
 		cmd->size = (tx + rx) * sizeof(uint16_t);
 	} else {
-		/* disable irq & close esd */
-		cd->hw_ops->irq_enable(cd, false);
+		/* disable esd */
 		goodix_ts_blocking_notify(NOTIFY_ESD_OFF, NULL);
 
 		ret = -EINVAL;
@@ -1022,8 +1021,7 @@ static int get_self_sensor_data(
 			cmd->size = (tx + rx) * sizeof(uint16_t);
 		}
 
-		/* enable irq & esd */
-		cd->hw_ops->irq_enable(cd, true);
+		/* enable esd */
 		goodix_ts_blocking_notify(NOTIFY_ESD_ON, NULL);
 	}
 	return ret;
@@ -2672,7 +2670,11 @@ static int goodix_ts_resume(struct goodix_ts_core *core_data)
 	goodix_set_pinctrl_state(core_data, PINCTRL_MODE_ACTIVE);
 
 	atomic_set(&core_data->suspended, 0);
-	hw_ops->irq_enable(core_data, false);
+	/* [GOOG]
+	 * This will cause a deadlock with wakelock. Since we already disable irq
+	 * when touch is suspended, we don't need to disable irq here again.
+	 */
+	//hw_ops->irq_enable(core_data, false);
 
 	mutex_lock(&goodix_modules.mutex);
 	if (!list_empty(&goodix_modules.head)) {

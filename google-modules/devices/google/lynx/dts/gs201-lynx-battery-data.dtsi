@@ -97,10 +97,10 @@ maxim,config {
 			/* 0x002e */	0x0400	/* CGain */
 		>;
 	};
-	/* 2_L10_COS_031622_RC2_INI_1110_Change\ QRTable.txt http://b/255458373#comment11 */
+	/* 2_L10_COS_031622_RC2_INI_Rev7.txt http://b/308977311#comment7 */
 	maxim,cos-pack-b-2k {
 		maxim,batt-id-kohm = <2>;
-		maxim,model-version = <5>;
+		maxim,model-version = <6>;
 		maxim,force-reset-model-data;
 		maxim,rc1-tempco = /bits/ 16 <0x1d0f>;
 		maxim,rc2-tempco = /bits/ 16 <0x0902>;
@@ -136,7 +136,7 @@ maxim,config {
 			/* 0x002C */	0xED51	/* *TGain */
 			/* 0x002D */	0x1EBA	/* *TOFF */
 			/* 0x00B9 */	0x0014	/* *TCurve */
-			/* 0x002B */	0x6030	/* *nMiscCfg */
+			/* 0x002B */	0x6070	/* *nMiscCfg */
 			/* 0x0004 */	0x1900	/* AtRate @ 0x04 */
 			/* 0x0049 */	0x2241	/* convgcfg */
 			/* 0x0029 */	0xc613	/* FilterCFG */
@@ -144,10 +144,10 @@ maxim,config {
 			/* 0x002e */	0x0400	/* CGain */
 		>;
 	};
-	/* 3_L10_LSN_061322_RC2_INI_01092023.txt http://b/264837280#comment1 */
+	/* 3_L10_LSN_061322_RC2_INI_Rev8.txt http://b/308977311#comment7 */
 	maxim,lsn-pack-b-3k {
 		maxim,batt-id-kohm = <3>;
-		maxim,model-version = <6>;
+		maxim,model-version = <7>;
 		maxim,force-reset-model-data;
 		maxim,rc1-tempco = /bits/ 16 <0x173a>;
 		maxim,rc2-tempco = /bits/ 16 <0x1602>;
@@ -183,7 +183,7 @@ maxim,config {
 			/* 0x002C */	0xED51	/* *TGain */
 			/* 0x002D */	0x1EBA	/* *TOFF */
 			/* 0x00B9 */	0x0014	/* *TCurve */
-			/* 0x002B */	0x6030	/* *nMiscCfg */
+			/* 0x002B */	0x6070	/* *nMiscCfg */
 			/* 0x0004 */	0x1900	/* AtRate @ 0x04 */
 			/* 0x0049 */	0x2241	/* convgcfg */
 			/* 0x0029 */	0xc613	/* FilterCFG */

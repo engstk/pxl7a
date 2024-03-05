@@ -85,8 +85,6 @@ struct wlan_pmo_ctx {
 		pmo_resume_handler[WLAN_UMAC_MAX_COMPONENTS];
 	void *pmo_resume_handler_arg[WLAN_UMAC_MAX_COMPONENTS];
 	qdf_spinlock_t lock;
-	void *suspend_history_ref;
-	void *resume_history_ref;
 };
 
 /**

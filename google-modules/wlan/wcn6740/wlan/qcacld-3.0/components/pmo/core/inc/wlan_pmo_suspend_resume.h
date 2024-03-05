@@ -622,6 +622,4 @@ void pmo_core_vdev_set_moddtim_user(struct wlan_objmgr_vdev *vdev,
 }
 #endif /* WLAN_POWER_MANAGEMENT_OFFLOAD */
 
-void pmo_store_history_ref(struct wlan_pmo_ctx *ctx);
-
 #endif /* end  of _WLAN_PMO_SUSPEND_RESUME_H_ */

@@ -37,9 +37,6 @@
 
 #include <linux/debugfs.h>
 
-#define get_boot_sec() div_u64(ktime_to_ns(ktime_get_boottime()), NSEC_PER_SEC)
-
-
 /* Non DC Charger is the default */
 #define GCPM_DEFAULT_CHARGER	0
 /* TODO: handle capabilities based on index number */

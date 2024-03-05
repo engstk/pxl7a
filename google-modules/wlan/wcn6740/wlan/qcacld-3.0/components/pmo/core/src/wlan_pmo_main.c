@@ -28,7 +28,6 @@
 #include "wlan_fwol_ucfg_api.h"
 #include "wlan_ipa_obj_mgmt_api.h"
 #include "wlan_pmo_icmp.h"
-#include "wlan_pmo_suspend_resume.h"
 
 static struct wlan_pmo_ctx *gp_pmo_ctx;
 
@@ -47,7 +46,6 @@ QDF_STATUS pmo_allocate_ctx(void)
 		return QDF_STATUS_E_NOMEM;
 
 	qdf_spinlock_create(&gp_pmo_ctx->lock);
-	pmo_store_history_ref(gp_pmo_ctx);
 
 	return QDF_STATUS_SUCCESS;
 }

@@ -3310,7 +3310,7 @@ static int goodix_ts_probe(struct platform_device *pdev)
 		goto err_start_late_init;
 	}
 
-	ts_info("goodix_ts_core probe success");
+	ts_info("%s: goodix_ts_core probe success", __func__);
 	return 0;
 
 err_start_late_init:

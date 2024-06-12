@@ -97,10 +97,10 @@ maxim,config {
 			/* 0x002e */	0x0400	/* CGain */
 		>;
 	};
-	/* 2_L10_COS_031622_RC2_INI_Rev7.txt http://b/308977311#comment7 */
+	/* 2_L10_COS_031622_RC2_INI_Rev7.txt http://b/323608826#comment10 */
 	maxim,cos-pack-b-2k {
 		maxim,batt-id-kohm = <2>;
-		maxim,model-version = <6>;
+		maxim,model-version = <7>;
 		maxim,force-reset-model-data;
 		maxim,rc1-tempco = /bits/ 16 <0x1d0f>;
 		maxim,rc2-tempco = /bits/ 16 <0x0902>;
@@ -115,7 +115,7 @@ maxim,config {
 		>;
 		maxim,fg-params = /bits/ 16 <
 			/* 0x0036 */	0xf060	/* nIAvgEmpty -> IAvgEmpty */
-			/* 0x002a */	0x0839	/* nRelaxCFG -> RelaxCFG */
+			/* 0x002a */	0x1439	/* nRelaxCFG -> RelaxCFG */
 			/* 0x0028 */	0x260e	/* nLearnCFG -> LearnCFG */
 			/* 0x001D */	0x4217	/* Config: */
 			/* 0x00BB */	0x0090	/* Config2: OCVQen|DSOCIi */
@@ -144,10 +144,10 @@ maxim,config {
 			/* 0x002e */	0x0400	/* CGain */
 		>;
 	};
-	/* 3_L10_LSN_061322_RC2_INI_Rev8.txt http://b/308977311#comment7 */
+	/* 3_L10_LSN_061322_RC2_INI_Rev8.txt http://b/323608826#comment10 */
 	maxim,lsn-pack-b-3k {
 		maxim,batt-id-kohm = <3>;
-		maxim,model-version = <7>;
+		maxim,model-version = <8>;
 		maxim,force-reset-model-data;
 		maxim,rc1-tempco = /bits/ 16 <0x173a>;
 		maxim,rc2-tempco = /bits/ 16 <0x1602>;
@@ -162,7 +162,7 @@ maxim,config {
 		>;
 		maxim,fg-params = /bits/ 16 <
 			/* 0x0036 */	0xf060	/* nIAvgEmpty -> IAvgEmpty */
-			/* 0x002a */	0x0839	/* nRelaxCFG -> RelaxCFG */
+			/* 0x002a */	0x1439	/* nRelaxCFG -> RelaxCFG */
 			/* 0x0028 */	0x260e	/* nLearnCFG -> LearnCFG */
 			/* 0x001D */	0x4217	/* Config: */
 			/* 0x00BB */	0x0090	/* Config2: OCVQen|DSOCIi */

@@ -219,8 +219,8 @@ static int mhi_fw_load_bhie(struct mhi_controller *mhi_cntrl,
 	}
 
 	sequence_id = MHI_RANDOM_U32_NONZERO(BHIE_TXVECSTATUS_SEQNUM_BMSK);
-	MHI_VERB("Starting image download via BHIe. Sequence ID: %u\n",
-		sequence_id);
+	MHI_LOG("Starting image download via BHIe. Sequence ID: %u by timeout %u ms\n",
+		sequence_id, mhi_cntrl->timeout_ms);
 	mhi_write_reg(mhi_cntrl, base, BHIE_TXVECADDR_HIGH_OFFS,
 		      upper_32_bits(mhi_buf->dma_addr));
 
@@ -281,8 +281,8 @@ static int mhi_fw_load_bhi(struct mhi_controller *mhi_cntrl,
 	}
 
 	mhi_cntrl->session_id = MHI_RANDOM_U32_NONZERO(BHI_TXDB_SEQNUM_BMSK);
-	MHI_VERB("Starting image download via BHI. Session ID: %u\n",
-		mhi_cntrl->session_id);
+	MHI_LOG("Starting image download via BHI. Session ID: %u by timeout %u ms\n",
+		mhi_cntrl->session_id, mhi_cntrl->timeout_ms);
 	mhi_write_reg(mhi_cntrl, base, BHI_STATUS, 0);
 	mhi_write_reg(mhi_cntrl, base, BHI_IMGADDR_HIGH,
 		      upper_32_bits(dma_addr));

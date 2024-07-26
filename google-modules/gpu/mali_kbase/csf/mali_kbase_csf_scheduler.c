@@ -43,6 +43,7 @@
 #include <mali_kbase_gpu_metrics.h>
 #include <csf/mali_kbase_csf_trace_buffer.h>
 #endif /* CONFIG_MALI_TRACE_POWER_GPU_WORK_PERIOD */
+#include <uapi/gpu/arm/midgard/platform/pixel/pixel_memory_group_manager.h>
 
 /* Value to indicate that a queue group is not groups_to_schedule list */
 #define KBASEP_GROUP_PREPARED_SEQ_NUM_INVALID (U32_MAX)
@@ -6685,6 +6686,9 @@ static int kbase_csf_scheduler_kthread(void *data)
 
 		dev_dbg(kbdev->dev, "Waking up for event after a scheduling iteration.");
 		wake_up_all(&kbdev->csf.event_wait);
+
+		/* Inform platform of scheduling event */
+		kbasep_platform_event_tick_tock(kbdev);
 	}
 
 	/* Wait for the other thread, that signaled the exit, to call kthread_stop() */

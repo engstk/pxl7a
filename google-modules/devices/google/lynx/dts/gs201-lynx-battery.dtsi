@@ -8,6 +8,7 @@
 
 &google_battery {
 	google,chg-battery-capacity = <4300>;
+	google,first-usage-date = <0>;
 
 	google,ttf-temp-idx= <2>;
 	google,ttf-adapter = <1980>;
